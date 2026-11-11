@@ -1,0 +1,21 @@
+{
+  "name": "cerealbox-ai-studio-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^3.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.3",
+    "mongoose": "^9.12.1",
+    "openai": "^4.104.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
