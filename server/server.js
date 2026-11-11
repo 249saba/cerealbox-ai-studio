@@ -9,14 +9,16 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  process.env.FRONTEND_URL
+  process.env.FRONTEND_URL,
 ].filter(Boolean);
 
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type"]
-}));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  }),
+);
 app.use(express.json({ limit: "1mb" }));
 
 // Phase 1 uses in-memory storage so no database setup is needed yet.
@@ -33,7 +35,7 @@ app.get("/api/health", (_req, res) => {
   res.json({
     status: "ok",
     app: "CerealBox AI Studio",
-    aiMode: process.env.GEMINI_API_KEY?.trim() ? "gemini" : "not_configured"
+    aiMode: process.env.GEMINI_API_KEY?.trim() ? "gemini" : "not_configured",
   });
 });
 
@@ -47,7 +49,7 @@ app.post("/api/campaigns", (req, res) => {
     [name, "Campaign name"],
     [client, "Client name"],
     [audience, "Target audience"],
-    [offer, "Offer / key message"]
+    [offer, "Offer / key message"],
   ]) {
     const error = requireText(value, field);
     if (error) return res.status(400).json({ message: error });
@@ -61,7 +63,7 @@ app.post("/api/campaigns", (req, res) => {
     audience: audience.trim(),
     offer: offer.trim(),
     status: "Draft",
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
 
   campaigns.unshift(campaign);
@@ -77,5 +79,7 @@ app.use((err, _req, res, _next) => {
 
 app.listen(PORT, () => {
   console.log(`CerealBox API running at http://localhost:${PORT}`);
-  console.log(`AI mode: ${process.env.GEMINI_API_KEY?.trim() ? "gemini" : "not_configured"}`);
+  console.log(
+    `AI mode: ${process.env.GEMINI_API_KEY?.trim() ? "gemini" : "not_configured"}`,
+  );
 });
